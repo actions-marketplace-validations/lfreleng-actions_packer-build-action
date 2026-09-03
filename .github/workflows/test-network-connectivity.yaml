@@ -33,13 +33,23 @@ jobs:
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
         with:
           egress-policy: audit
 
+      # The diagnostics steps below install the OpenStack CLI from a
+      # hash-pinned lock held in this repository, so the workspace has to
+      # be populated. Checking out first, rather than beside that install,
+      # keeps the contents available to every later step and avoids a
+      # mid-job checkout wiping anything written to the workspace.
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
       - name: Setup bastion with enhanced logging
         id: bastion
-        uses: lfreleng-actions/tailscale-openstack-bastion-action@eb920e9c30bbe25e908c317af504f8321367bc39 # v0.1.1
+        uses: lfreleng-actions/tailscale-openstack-bastion-action@c60c23164c9490d6031308e618e6c6c98a50509d # v0.1.2
         with:
           operation: setup
           tailscale_oauth_client_id: ${{ secrets.TAILSCALE_OAUTH_CLIENT_ID }}
@@ -233,6 +243,17 @@ jobs:
             sleep $((WAIT_MINUTES * 60))
           fi
 
+      - name: Install the OpenStack CLI
+        if: always()
+        run: |
+          set -euo pipefail
+          # Deliberately no secrets in this step's environment. Installing
+          # packages has no need of them, and keeping them out means that
+          # even a malicious package whose digest reached the lock cannot
+          # read OpenStack credentials while its install hooks run.
+          pip3 install -q --require-hashes \
+            -r .github/openstack/requirements.txt
+
       - name: Get bastion details for manual inspection
         if: always()
         env:
@@ -253,8 +274,6 @@ jobs:
           export OS_REGION_NAME="${OS_REGION_SECRET}"
           export OS_IDENTITY_API_VERSION=3
 
-          pip3 install -q python-openstackclient
-
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "📋 Bastion Instance Details"
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -268,7 +287,7 @@ jobs:
 
       - name: Teardown bastion
         if: always()
-        uses: lfreleng-actions/tailscale-openstack-bastion-action@eb920e9c30bbe25e908c317af504f8321367bc39 # v0.1.1
+        uses: lfreleng-actions/tailscale-openstack-bastion-action@c60c23164c9490d6031308e618e6c6c98a50509d # v0.1.2
         with:
           operation: teardown
           bastion_name: "network-test-${{ github.run_id }}"

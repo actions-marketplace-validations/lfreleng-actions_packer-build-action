@@ -25,18 +25,18 @@ jobs:
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
         with:
           egress-policy: audit
 
       - name: Checkout packer-build-action
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           path: action-repo
 
       - name: Checkout test repository with Packer templates
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           repository: lfit/releng-common-packer
@@ -59,3 +59,34 @@ jobs:
             echo "## Test Results"
             echo "✅ Validation test completed"
           } >> "${GITHUB_STEP_SUMMARY}"
+
+  test-template-discovery:
+    name: Test Template Discovery
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Harden the runner
+        # yamllint disable-line rule:line-length
+        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout packer-build-action
+        # yamllint disable-line rule:line-length
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Focused regression cover for template discovery, run against
+      # the real script and the real action metadata with a stub
+      # packer. Complements the end-to-end job above, which can only
+      # exercise whatever layout the external test repository has.
+      - name: Run template discovery regression tests
+        shell: bash
+        run: |
+          # Run template discovery regression tests
+          # PyYAML lets the test read the init fallback out of the
+          # action metadata rather than keeping a copy of it.
+          python3 -m pip install --disable-pip-version-check -q pyyaml
+          bash tests/test-template-discovery.sh
