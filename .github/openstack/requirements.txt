@@ -1,19 +1,12 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: 2026 The Linux Foundation
-
-# Hash-pinned lock for the OpenStack CLI; install with:
-#
-#     python3 -m pip install --require-hashes -r .github/openstack/requirements.txt
-#
-# Generated from requirements.in in this directory; see it to regenerate.
-
 autopage==0.6.0 \
     --hash=sha256:42d07de90de63e83762828028bfd56d19906a18f7c951ef6eef3e9ad48a3071d \
     --hash=sha256:87566f08a7d4ba20e346515d26ba1132f2fac4e5619ffba3079e63c28e5df98f
 certifi==2026.7.22 \
     --hash=sha256:62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775 \
     --hash=sha256:741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55
-cffi==2.1.1 ; platform_python_implementation != 'PyPy' \
+cffi==2.1.1 \
     --hash=sha256:046bfc24911b37851ee1b51aab8bffe713d89c68c6a057b09484ce9fd5f69b4e \
     --hash=sha256:06c72bb76605a4b0cd0aad6930b69d4baf7dd5d806cfc409b824191099700e66 \
     --hash=sha256:0beceaabe56af686895136a2de78db54ecd8e4046b236b8fd6d6cb61389e9bf2 \
@@ -465,9 +458,9 @@ msgpack==1.2.2 \
 netaddr==1.3.0 \
     --hash=sha256:5c3c3d9895b551b763779ba7db7a03487dc1f8e3b385af819af341ae9ef6e48a \
     --hash=sha256:c2c6a8ebe5554ce33b7d5b3a306b71bbb373e000bbbf2350dd5213cc56e3dbbe
-openstacksdk==4.19.1 \
-    --hash=sha256:61b9568e7b72db9c59a030da25bd75452bc077964732e46d9a6cfc9d359ecb3d \
-    --hash=sha256:706f732a04c6c1cb92a9f41cdd2de5d3ae0e1dc5cf110b59ac3855a989e88dbf
+openstacksdk==4.22.0 \
+    --hash=sha256:757f399346f804d0a70b83fead919c498521e509889cd8973ece5cf7a640e6f9 \
+    --hash=sha256:e5aafe38e4c338bcb3844f1f446d7761c68477db8cec0e4bb91f4de9d35877c1
 os-service-types==1.9.0 \
     --hash=sha256:1f2e5fb71d1f6f4ff31d8992674f2368465bc2f25cd94018015c3ddbfc5c617f \
     --hash=sha256:f268545c896434177bf55c43f7d5129e65210d5d456df3f00a1c9832a71c3a4b
@@ -529,7 +522,7 @@ psutil==7.2.2 \
     --hash=sha256:ed0cace939114f62738d808fdcecd4c869222507e266e574799e9c0faa17d486 \
     --hash=sha256:eed63d3b4d62449571547b60578c5b2c4bcccc5387148db46e0c2313dad0ee00 \
     --hash=sha256:fd04ef36b4a6d599bbdb225dd1d3f51e00105f6d48a28f006da7f9822f2606d8
-pycparser==3.0 ; implementation_name != 'PyPy' and platform_python_implementation != 'PyPy' \
+pycparser==3.0 \
     --hash=sha256:600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29 \
     --hash=sha256:b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992
 pygments==2.21.0 \
@@ -550,9 +543,9 @@ python-keystoneclient==6.0.0 \
 python-manilaclient==6.3.0 \
     --hash=sha256:92d73667a1ac20ab083588e8912b59769be0706f20fb6e9845ec06d3d72723d4 \
     --hash=sha256:d2ecbf96ffa95c1f6ba306cab969a15666d4516576334dbdf3c67baccdfbf0c6
-python-openstackclient==10.3.0 \
-    --hash=sha256:6bcc2344d5dca9a4c4920998c0616eb82e9431e41033c91719247c72c61cca4d \
-    --hash=sha256:7fb752196feda765b0c840803374127d18de62d242238e7950069784d9f76ce3
+python-openstackclient==10.5.0 \
+    --hash=sha256:a31f7dfa25650bea045df42f3301677b344f2dd6cf9193d2531fe2725132685b \
+    --hash=sha256:a9c77b8d2b53a9413794daa5d60cbb4fa669af64799b704cfb96d75f2e002e8e
 pyyaml==6.0.3 \
     --hash=sha256:00c4bdeba853cc34e7dd471f16b4114f4162dc03e6b7afcc2128711f0eca823c \
     --hash=sha256:0150219816b6a1fa26fb4699fb7daa9caf09eb1999f3b70fb6e786805e80375a \
@@ -639,9 +632,6 @@ rich==15.0.0 \
 rich-argparse==1.8.0 \
     --hash=sha256:679df3d832fa94ad6e4bdb07ded088cd7ea2dddc58ae9b2b46346a40b06cbc0c \
     --hash=sha256:d2a3ce7854654e2253c578763ab0a32f05016f23a55fadba7b9a91b6c0e92142
-setuptools==84.0.0 \
-    --hash=sha256:51a52592b3b99e102b609654876bd65f19f999935166d1352678931132b0c670 \
-    --hash=sha256:f4695c21257f0d9b537ec2692c941d02ee143b7cc1276941349a546573b2ef73
 six==1.17.0 \
     --hash=sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274 \
     --hash=sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81
